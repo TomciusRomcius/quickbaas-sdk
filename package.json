@@ -1,9 +1,11 @@
 {
-  "name": "sdk",
+  "name": "quickbaas-sdk",
   "version": "1.0.0",
   "description": "A javascript sdk for making API calls to QuickBaas",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
+    "dev": "nodemon --watch src/ --exec pnpm run build -e ts",
+    "build": "tsc",
     "format": "prettier --write ."
   },
   "author": "",
@@ -15,6 +17,7 @@
   },
   "dependencies": {
     "@types/node": "^22.9.1",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "nodemon": "^3.1.7"
   }
 }

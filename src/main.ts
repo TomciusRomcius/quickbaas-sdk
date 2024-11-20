@@ -1,4 +1,5 @@
-import 'dotenv/config';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 // TODO: Check if the backend url is defined
 const BACKEND_URL = process.env.BACKEND_URL!;
