@@ -1,0 +1,20 @@
+{
+  "name": "sdk",
+  "version": "1.0.0",
+  "description": "A javascript sdk for making API calls to QuickBaas",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write ."
+  },
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@types/node": "^22.9.1",
+    "dotenv": "^16.4.5"
+  }
+}
