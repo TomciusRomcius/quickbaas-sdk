@@ -1,21 +1,30 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
+import axios from "axios";
 
-// TODO: Check if the backend url is defined
-const BACKEND_URL = process.env.BACKEND_URL!;
+type AuthConfigType = {
+  backendURL: string;
+}
 
 export class Auth {
+  static config?: AuthConfigType;
+
+  static initialize(config: AuthConfigType) {
+    this.config = config;
+  }
+  
   public static async signInWithPassword(email: string, password: string) {
-    const response = await fetch(`BACKEND_URL/users`, {
-      method: 'POST',
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
+    if (!Auth.config) {
+      // TODO: handle error
+      return;
+    }
+
+    console.log(this.config?.backendURL);
+    const response = await axios.post(`${Auth.config.backendURL}/user`, {
+      email: "cool email",
+      password: "cool password",
     });
 
     if (response.status === 200) {
-      const jwt = await response.json(); 
+      const jwt = response.data;
       localStorage.setItem('auth-cookie', jwt);
       console.log(jwt);
     }
