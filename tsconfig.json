@@ -14,8 +14,10 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "noFallthroughCasesInSwitch": true,
-    "outDir": "./dist"
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "declaration": true,
   },
   "compileOnSave": true,
-  "include": ["."]
+  "include": ["src/**/*.ts"]
 }
