@@ -1,55 +1,15 @@
-import axios from 'axios';
+import Authentication from './auth';
+import Database from './database';
+import type { AppBackendConfig } from './utils';
 
-type AuthConfigType = {
-  backendURL: string;
-};
+export class BackendApplication {
+  public config: AppBackendConfig;
+  public auth: Authentication;
+  public db: Database;
 
-export class Auth {
-  static config?: AuthConfigType;
-
-  static initialize(config: AuthConfigType) {
+  constructor(config: AppBackendConfig) {
     this.config = config;
-  }
-
-  public static async signInWithPassword(email: string, password: string) {
-    if (!Auth.config) {
-      // TODO: handle error
-      return;
-    }
-
-    const response = await axios.post(
-      `${Auth.config.backendURL}/auth/sign-in-with-password`,
-      {
-        email: email,
-        password: password,
-      },
-    );
-
-    if (response.status === 200) {
-      const jwt = response.data;
-      localStorage.setItem('auth-cookie', jwt);
-      console.log(jwt);
-    }
-  }
-
-  public static async signUpWithPassword(email: string, password: string) {
-    if (!Auth.config) {
-      // TODO: handle error
-      return;
-    }
-
-    const response = await axios.post(
-      `${Auth.config.backendURL}/auth/sign-up-with-password`,
-      {
-        email: email,
-        password: password,
-      },
-    );
-
-    if (response.status === 200) {
-      const jwt = response.data;
-      localStorage.setItem('auth-cookie', jwt);
-      console.log(jwt);
-    }
+    this.auth = new Authentication(config);
+    this.db = new Database(config);
   }
 }
