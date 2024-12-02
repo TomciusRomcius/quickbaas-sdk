@@ -12,4 +12,12 @@ export class BackendApplication {
     this.auth = new Authentication(config);
     this.db = new Database(config);
   }
+
+  public getDatabase(): Database {
+    return this.db;
+  }
+
+  public getAuth(): Authentication {
+    return this.auth;
+  }
 }

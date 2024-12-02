@@ -8,7 +8,10 @@ export default class Authentication {
     this.config = config;
   }
 
-  public async signInWithPassword(email: string, password: string) {
+  public async signInWithPassword(
+    email: string,
+    password: string,
+  ): Promise<void> {
     const response = await axios.post(
       `${this.config.backendURL}/auth/sign-in-with-password`,
       {
@@ -19,12 +22,14 @@ export default class Authentication {
 
     if (response.status === 200) {
       const jwt = response.data;
-      localStorage.setItem('auth-cookie', jwt);
-      console.log(jwt);
+      document.cookie = `token: ${jwt}`;
     }
   }
 
-  public async signUpWithPassword(email: string, password: string) {
+  public async signUpWithPassword(
+    email: string,
+    password: string,
+  ): Promise<void> {
     const response = await axios.post(
       `${this.config.backendURL}/auth/sign-up-with-password`,
       {
@@ -35,8 +40,7 @@ export default class Authentication {
 
     if (response.status === 200) {
       const jwt = response.data;
-      localStorage.setItem('auth-cookie', jwt);
-      console.log(jwt);
+      document.cookie = `token: ${jwt}`;
     }
   }
 }
