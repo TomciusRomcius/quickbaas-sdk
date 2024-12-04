@@ -20,9 +20,8 @@ export default class Authentication {
       },
     );
 
-    if (response.status === 200) {
-      const jwt = response.data;
-      document.cookie = `token: ${jwt}`;
+    if (response.status === 201) {
+      this.setJwtCookie(response.data);
     }
   }
 
@@ -38,9 +37,34 @@ export default class Authentication {
       },
     );
 
-    if (response.status === 200) {
-      const jwt = response.data;
-      document.cookie = `token: ${jwt}`;
+    if (response.status === 201) {
+      this.setJwtCookie(response.data);
+    }
+  }
+
+  public signOut(): void {
+    this.removeJwtCookie();
+  }
+
+  private setJwtCookie(jwt: string): void {
+    try {
+      const cookie = JSON.parse(document.cookie);
+      cookie['user'] = jwt;
+      document.cookie = JSON.stringify(cookie);
+    } catch {
+      document.cookie = JSON.stringify({
+        user: jwt,
+      });
+    }
+  }
+
+  private removeJwtCookie(): void {
+    try {
+      const cookie = JSON.parse(document.cookie);
+      cookie['user'] = undefined;
+      document.cookie = JSON.stringify(cookie);
+    } catch {
+      console.warn(`Trying to delete Jwt cookie when it doesn't exist`);
     }
   }
 }
