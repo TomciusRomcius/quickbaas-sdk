@@ -1,8 +1,13 @@
 import axios from 'axios';
 import { AppBackendConfig } from './utils';
+import { UserType } from './types';
+import JWT from './jwt';
 
 export default class Authentication {
-  config: AppBackendConfig;
+  public user: UserType | null = null;
+
+  private config: AppBackendConfig;
+  private readonly jwtUserKey = 'user';
 
   constructor(config: AppBackendConfig) {
     this.config = config;
@@ -21,7 +26,8 @@ export default class Authentication {
     );
 
     if (response.status === 201) {
-      this.setJwtCookie(response.data);
+      JWT.setJwtCookie(this.jwtUserKey, response.data);
+      this.user = { email };
     }
   }
 
@@ -38,33 +44,13 @@ export default class Authentication {
     );
 
     if (response.status === 201) {
-      this.setJwtCookie(response.data);
+      JWT.setJwtCookie(this.jwtUserKey, response.data);
+      this.user = { email };
     }
   }
 
   public signOut(): void {
-    this.removeJwtCookie();
-  }
-
-  private setJwtCookie(jwt: string): void {
-    try {
-      const cookie = JSON.parse(document.cookie);
-      cookie['user'] = jwt;
-      document.cookie = JSON.stringify(cookie);
-    } catch {
-      document.cookie = JSON.stringify({
-        user: jwt,
-      });
-    }
-  }
-
-  private removeJwtCookie(): void {
-    try {
-      const cookie = JSON.parse(document.cookie);
-      cookie['user'] = undefined;
-      document.cookie = JSON.stringify(cookie);
-    } catch {
-      console.warn(`Trying to delete Jwt cookie when it doesn't exist`);
-    }
+    JWT.removeJwtCookie(this.jwtUserKey);
+    this.user = null;
   }
 }
