@@ -16,7 +16,7 @@ export default class Database {
       },
     );
 
-    return res.data;
+    return res.data.result;
   }
 
   public async set(path: string, value: unknown): Promise<void> {

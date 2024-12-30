@@ -1,17 +1,15 @@
-import Database from '../database';
-import { wipeTestDb } from './wipe-db';
-
-const backendURL = 'http://localhost:3000';
+import Database from '../src/database';
+import { setupE2E } from './utils';
 
 describe('database module', () => {
-  const db = new Database({
-    backendURL: backendURL,
-  });
+  let db: Database;
 
   beforeAll(async () => {
-    await wipeTestDb(backendURL);
+    await setupE2E();
+    db = new Database({
+      backendURL: process.env.BACKEND_URL!,
+    });
   });
-
   it('set() and get() functionality should work correctly with simple values', async () => {
     const path = 'app.name';
     const value = 'test';

@@ -14,10 +14,10 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "noFallthroughCasesInSwitch": true,
-    "rootDir": "./src",
+    "rootDirs": ["./src", "./e2e"],
     "outDir": "./dist",
     "declaration": true,
   },
   "compileOnSave": true,
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "e2e/database.spec.ts", "e2e/utils.ts", "e2e/auth.e2e.spec.ts", "e2e/database.e2e.spec.ts"]
 }

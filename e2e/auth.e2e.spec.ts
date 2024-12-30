@@ -1,15 +1,12 @@
-import Authentication from '../auth';
-import { wipeTestDb } from './wipe-db';
-
-const backendURL = 'http://localhost:3000';
+import Authentication from '../src/auth';
+import { setupE2E } from './utils';
 
 describe('Authentication flow', () => {
-  const auth = new Authentication({
-    backendURL: backendURL,
-  });
+  let auth: Authentication;
 
   beforeAll(async () => {
-    await wipeTestDb(backendURL);
+    await setupE2E();
+    auth = new Authentication({ backendURL: process.env.BACKEND_URL! });
   });
 
   it('sign up, sign out and sign in should work properly and set cookies correctly', async () => {
