@@ -1,10 +1,10 @@
 import axios from 'axios';
-import type { AppBackendConfig } from './utils';
+import type { AppBackendConfigType } from './types';
 
 export default class Database {
-  private config: AppBackendConfig;
+  private config: AppBackendConfigType;
 
-  constructor(config: AppBackendConfig) {
+  constructor(config: AppBackendConfigType) {
     this.config = config;
   }
 

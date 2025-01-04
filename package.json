@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --watch src/ --exec pnpm run build -e ts",
     "test:watch": "jest --watch --verbose true --silent=false ",
-    "test:e2e": "jest --watch --verbose true -f e2e --silent=false ",
+    "test:e2e": "jest --watch --verbose true -f --runInBand e2e --silent=false ",
     "build": "tsc",
     "format": "prettier --write ."
   },

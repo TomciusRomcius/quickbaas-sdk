@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { AppBackendConfigType } from './types';
 
 export default class ServerFunctions {
@@ -7,9 +7,9 @@ export default class ServerFunctions {
     this.config = config;
   }
 
-  public async run(fnName: string, body: unknown): Promise<Response> {
+  public async run(fnName: string, body: unknown): Promise<AxiosResponse> {
     return await axios.post(`${this.config.backendURL}/server-functions/run`, {
-      body: body,
+      params: body,
       name: fnName,
     });
   }

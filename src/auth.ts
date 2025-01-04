@@ -1,15 +1,14 @@
 import axios from 'axios';
-import { AppBackendConfig } from './utils';
-import { UserType } from './types';
+import { AppBackendConfigType, UserType } from './types';
 import JWT from './jwt';
 
 export default class Authentication {
   public user: UserType | null = null;
 
-  private config: AppBackendConfig;
+  private config: AppBackendConfigType;
   private readonly jwtUserKey = 'user';
 
-  constructor(config: AppBackendConfig) {
+  constructor(config: AppBackendConfigType) {
     this.config = config;
   }
 
